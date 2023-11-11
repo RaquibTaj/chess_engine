@@ -66,3 +66,6 @@ We represnt the legal moves as edges over a graph.
 (8x8x4) + 1 = 257 bits
 ```
 257 bits stored in a vector of 0's or 1's. The "+1" is used to represnt whose move is next. 
+
+### Training Dataset:
+To train the model, we use the free KingBase 2019 database, consisting of around 2.2 million chess games played since 1990 with a player ELO rating greater than 2000
