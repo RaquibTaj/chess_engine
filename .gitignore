@@ -2,3 +2,4 @@
 Dataset
 *.pyc
 __pycache__/
+.venv
