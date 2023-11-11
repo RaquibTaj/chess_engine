@@ -9,6 +9,12 @@ Use a neural network to prune the search tree.
 ```
 V = f(board)
 ```
+V: a value of -1 represents the black win state, a value of 0 represents a draw, and a value of 1 represents white win state.
+<br>  
+All positions where white wins = 1  
+All positions where draw = 0  
+All positions where black wins = -1
+
 ### State (Board):
 ```
 r n b q k b n r
