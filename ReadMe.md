@@ -1,5 +1,5 @@
 # Chess game
-### Credits: George Hotz
+### Credits: [George Hotz](https://www.twitch.tv/georgehotz)
 ### The plan:-
 
 Create a Zero Knowledge Chess Engine.  
