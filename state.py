@@ -1,5 +1,6 @@
 import chess
 import numpy as np
+import torch
 
 class State(object):
     def __init__(self, board=None):
@@ -36,15 +37,15 @@ class State(object):
         bstate = bstate.reshape (8,8) 
      
         #binary state
-        state = np.zeros((8,8,5), np.uint8)
+        state = np.zeros((5,8,8), np.uint8) #board state and board representation in a tensor
         #0-3 columns to binary to binary
-        state[:, :, 0] = (bstate>>3)&1 #Doing bitwise operation with 0001
-        state[:, :, 1] = (bstate>>2)&1
-        state[:, :, 2] = (bstate>>1)&1
-        state[:, :, 3] = (bstate>>0)&1
+        state[0] = (bstate>>3)&1 #Doing bitwise operation with 0001
+        state[1] = (bstate>>2)&1
+        state[2] = (bstate>>1)&1
+        state[3] = (bstate>>0)&1
        
        #4th column represents whose turn it is.
-        state[:, :, 4] = (self.board.turn*1.0)
+        state[4] = (self.board.turn*1.0)
 
         pp = self.board.shredder_fen()
         return state
@@ -58,5 +59,6 @@ class State(object):
         
 if __name__ == "__main__":
     s = State()
-    #print(s.edges())
-    #print(s.serialize()[:,:, 0])
+    print(s.edges())
+    print(s.serialize()[:,:, 0])
+    print(torch.cuda.is_available())
