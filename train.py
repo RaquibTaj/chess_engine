@@ -7,7 +7,7 @@ import torch.nn.functional as F
 
 class chess_value_dataset(Dataset):
     def __init__(self):
-        dat = np.load("processed/dataset_1M.npz")
+        dat = np.load("processed/dataset_10M.npz")
         self.X = dat['x']
         self.Y = dat['y']
         print("loaded", self.X.shape, self.Y.shape)
@@ -67,33 +67,33 @@ class Net(nn.Module):
         #value o/p
         return F.tanh(x) # tanh is ideal activation funtion cause [-1,+1] 
     
-    
-chess_dataset = chess_value_dataset()
-model = Net()
-train_loader = torch.utils.data.DataLoader(chess_dataset, batch_size=256, shuffle = True)
-optimizer = optim.Adam(model.parameters())
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu") #Setting device based on availability 
-model.cuda() #TODO: make a function to dynamically assign device based on availabilty 
-loss_fn = nn.MSELoss()
-model.train()
+if __name__ == "__main__":    
+    chess_dataset = chess_value_dataset()
+    model = Net()
+    train_loader = torch.utils.data.DataLoader(chess_dataset, batch_size=256, shuffle = True)
+    optimizer = optim.Adam(model.parameters())
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu") #Setting device based on availability 
+    model.cuda() #TODO: make a function to dynamically assign device based on availabilty 
+    loss_fn = nn.MSELoss()
+    model.train()
 
-for epoch in range(100):
-    total_loss = 0
-    div_factor = 0
-    for batch_idx, (data, target) in enumerate(train_loader):
-        #data = data.unsqueeze_(-1) -> previusly used to manually coorect the PGN files while training (Bad Idea)
-        target = target.unsqueeze(-1)
-        data = data.float()
-        target = target.float()
-        data, target = data.to(device), target.to(device)
-        optimizer.zero_grad()
-        output = model(data)
-        loss = loss_fn(output, target)
-        loss.backward()
-        optimizer.step()
-        total_loss += loss.data.item()
-        div_factor += 1
+    for epoch in range(100):
+        total_loss = 0
+        div_factor = 0
+        for batch_idx, (data, target) in enumerate(train_loader):
+            #data = data.unsqueeze_(-1) -> previusly used to manually coorect the PGN files while training (Bad Idea)
+            target = target.unsqueeze(-1)
+            data = data.float()
+            target = target.float()
+            data, target = data.to(device), target.to(device)
+            optimizer.zero_grad()
+            output = model(data)
+            loss = loss_fn(output, target)
+            loss.backward()
+            optimizer.step()
+            total_loss += loss.data.item()
+            div_factor += 1
 
-    print(f"Epoch: {epoch} Batch: {batch_idx} Loss: {total_loss/div_factor}") #printing the loss of the network at every forward and backward pass
+        print(f"Epoch: {epoch} Batch: {batch_idx} Loss: {total_loss/div_factor}") #printing the loss of the network at every forward and backward pass
 
 
