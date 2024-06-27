@@ -70,8 +70,8 @@ class Net(nn.Module):
 if __name__ == "__main__":    
     chess_dataset = chess_value_dataset()
     model = Net()
-    train_loader = torch.utils.data.DataLoader(chess_dataset, batch_size=256, shuffle = True)
-    optimizer = optim.Adam(model.parameters())
+    train_loader = torch.utils.data.DataLoader(chess_dataset, batch_size=1024, shuffle = True)
+    optimizer = optim.Adam(model.parameters(), lr=0.001) #set the initial learning rate manually seemed to do well with a subset of the data :)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") #Setting device based on availability 
     model.cuda() #TODO: make a function to dynamically assign device based on availabilty 
     loss_fn = nn.MSELoss()
@@ -95,5 +95,6 @@ if __name__ == "__main__":
             div_factor += 1
 
         print(f"Epoch: {epoch} Batch: {batch_idx} Loss: {total_loss/div_factor}") #printing the loss of the network at every forward and backward pass
+        torch.save(model.state_dict(), "saved_model/weights.pth")
 
 

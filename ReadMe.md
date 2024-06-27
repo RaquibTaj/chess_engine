@@ -2,8 +2,7 @@
 ### Credits: [George Hotz](https://www.twitch.tv/georgehotz)
 ### The plan:-
 
-Create a Zero Knowledge Chess Engine.  
-Use a neural network to prune the search tree.  
+To build a chess game that can beat the average Human Player. Built the Neural Netowrk using 
 
 ### Mathematical Defination:
 ```
@@ -51,6 +50,8 @@ b2b4
 a2a4
 ```
 We represnt the legal moves as edges over a graph.
+
+TODO: Explain conversion of data using serialize() and finally data ready to be consumed by NN
 
 ### Pieces:
 1. Blank (no piece exist)

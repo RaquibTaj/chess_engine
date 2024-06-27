@@ -4,3 +4,4 @@ Dataset
 __pycache__/
 .venv
 processed/
+saved_model/
