@@ -1,4 +1,4 @@
-import chess
+import  chess
 import numpy as np
 from train import Net
 

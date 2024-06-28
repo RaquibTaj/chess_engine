@@ -17,4 +17,7 @@ class Evaluator(object):
 if __name__ == "__main__":
     e = Evaluator()
     s = State()
-    print(e(s))
+    print()
+    for move in s.edges():
+        s.board.push(move)
+        #print(move, e(s))
