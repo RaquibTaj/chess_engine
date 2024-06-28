@@ -1,6 +1,7 @@
 import chess
 import numpy as np
-import torch
+from train import Net
+
 
 class State(object):
     def __init__(self, board=None):
@@ -57,8 +58,7 @@ class State(object):
         #TODO: add neural net here...
         return 1    #all positions are equal on the board. 
         
+
 if __name__ == "__main__":
     s = State()
-    print(s.edges())
-    print(s.serialize()[:,:, 0])
-    print(torch.cuda.is_available())
+
